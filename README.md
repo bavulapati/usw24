@@ -3,6 +3,12 @@ The hackathon project for unikraft summer workshop
 
 ## Run the app locally
 ```
+npm install 
+npm run seed
+npm start
+
+OR
+
 kraft run --rm -p 3000:3000 --plat qemu --arch x86_64 -M 1024M .
 ```
 ```
