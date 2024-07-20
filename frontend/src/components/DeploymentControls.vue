@@ -4,13 +4,14 @@ import { ref } from 'vue';
 
 let githubHandle = ref<string>("");
 
-const props = defineProps(['markdown'])
+const props = defineProps(['pageContent'])
 
 function deployInstance() {
   console.log("deploy")
-  let data = JSON.stringify({
+  let fullPage = '<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Document</title>\n</head>\n<body> ' + props.pageContent + ' </body>\n</html>'
+  let data = JSON.stringify({ 
     "githubHandle": githubHandle.value,
-    "markdown": props.markdown
+    "markdown": fullPage
   });
   let config = {
     method: 'post',
