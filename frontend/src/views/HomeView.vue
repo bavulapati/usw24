@@ -9,6 +9,7 @@ import { type Ref, ref } from 'vue'
 let fileURL: string;
 let markdownContent: Ref<string> = ref<string>("");
 let htmlContent: Ref<string> = ref<string>("");
+let generatedURL: Ref<string> = ref<string>("");
 
 function getFile() {
   if (fileURL === "") {
@@ -25,9 +26,13 @@ function getFile() {
   })
 }
 
-async function parseMarkdown()
-{
+async function parseMarkdown() {
   htmlContent.value = DOMPurify.sanitize(await marked.parse(markdownContent.value));
+}
+
+function test(data: any)
+{
+  generatedURL.value = data;
 }
 
 </script>
@@ -46,16 +51,20 @@ async function parseMarkdown()
             class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-1">Get
             file</button>
         </div>
-        <DeploymentControls :pageContent=htmlContent></DeploymentControls>
+        <DeploymentControls :pageContent=htmlContent @urlGenerated='test'></DeploymentControls>
       </nav>
+      <div class="flex flex-column pl-2 font-size-2" v-if="generatedURL !== ''">
+        <h3>Generated url: </h3>
+        <a class="text-sky-600" :href="generatedURL">{{generatedURL}}</a>
+      </div>
+
     </header>
 
     <div class="columns-2 p-2" id="content">
       <div id="markdown-code-container" class="w-full h-full">
         <textarea name="" id="markdown-code"
           class="w-full h-full resize-none p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          v-model="markdownContent"
-          @keyup="parseMarkdown"></textarea>
+          v-model="markdownContent" @keyup="parseMarkdown"></textarea>
       </div>
       <PreviewPage :renderContent=htmlContent></PreviewPage>
     </div>
@@ -64,10 +73,10 @@ async function parseMarkdown()
 
 <style scoped>
 #header {
-  height: 10%;
+  height: 11%;
 }
 
 #content {
-  height: 90%;
+  height: 89%;
 }
 </style>

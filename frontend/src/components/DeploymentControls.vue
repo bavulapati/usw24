@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 
 let githubHandle = ref<string>("");
+const emit = defineEmits(['urlGenerated'])
 
 const props = defineProps(['pageContent'])
 
@@ -26,7 +27,8 @@ function deployInstance() {
 
   axios.request(config)
     .then((response) => {
-      console.log(JSON.stringify(response.data));
+      let resp: DeploymentResponse = response.data as DeploymentResponse;
+      emit("urlGenerated", resp.githubHandle);
     })
     .catch((error) => {
       console.log(error);
