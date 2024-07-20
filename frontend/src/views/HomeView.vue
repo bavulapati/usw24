@@ -30,9 +30,8 @@ async function parseMarkdown() {
   htmlContent.value = DOMPurify.sanitize(await marked.parse(markdownContent.value));
 }
 
-function test(data: any)
-{
-  generatedURL.value = data;
+function setURL(newURL: any) {
+  generatedURL.value = newURL;
 }
 
 </script>
@@ -51,11 +50,11 @@ function test(data: any)
             class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-1">Get
             file</button>
         </div>
-        <DeploymentControls :pageContent=htmlContent @urlGenerated='test'></DeploymentControls>
+        <DeploymentControls :pageContent=htmlContent @urlGenerated='setURL'></DeploymentControls>
       </nav>
       <div class="flex flex-column pl-2 font-size-2" v-if="generatedURL !== ''">
         <h3>Generated url: </h3>
-        <a class="text-sky-600" :href="generatedURL">{{generatedURL}}</a>
+        <a class="text-sky-600" :href="generatedURL">{{ generatedURL }}</a>
       </div>
 
     </header>
