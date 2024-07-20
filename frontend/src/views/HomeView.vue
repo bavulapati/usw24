@@ -25,6 +25,11 @@ function getFile() {
   })
 }
 
+async function parseMarkdown()
+{
+  htmlContent.value = DOMPurify.sanitize(await marked.parse(markdownContent.value));
+}
+
 </script>
 
 <template>
@@ -49,7 +54,8 @@ function getFile() {
       <div id="markdown-code-container" class="w-full h-full">
         <textarea name="" id="markdown-code"
           class="w-full h-full resize-none p-2.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          v-model="markdownContent"></textarea>
+          v-model="markdownContent"
+          @keyup="parseMarkdown"></textarea>
       </div>
       <PreviewPage :renderContent=htmlContent></PreviewPage>
     </div>

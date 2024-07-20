@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  .unmodified-style{
+    * {
+      all: revert-layer
+    }
+  }
+}
+
 html,
 body,
 #app {
