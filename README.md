@@ -17,3 +17,4 @@ kraft cloud deploy -p 3000:3000 -M 256 .
 cd frontend/
 kraft cloud deploy -p 443:8080 -M 512 .
 ```
+

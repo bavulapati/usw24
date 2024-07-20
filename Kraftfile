@@ -2,8 +2,8 @@ spec: v0.6
 
 name: node21-expressjs
 
-runtime: node:21
+runtime: node:20
 
 rootfs: ./Dockerfile
 
-cmd: ["/usr/bin/node", "/usr/src/server.js"]
+cmd: ["/usr/bin/node", "/usr/src/usw24"]
