@@ -13,5 +13,5 @@ COPY --from=build /etc/os-release /etc/os-release
 
 # Express.js
 COPY --from=build /usr/src/node_modules /usr/src/node_modules
-COPY --from=build /usr/src/app /usr/src/usw24
+COPY --from=build /usr/src/app /usr/src/app
 
