@@ -12,6 +12,7 @@ FROM scratch
 COPY --from=build /etc/os-release /etc/os-release
 
 # Express.js
+COPY --from=build /usr/src/package.json /usr/src/package.json
 COPY --from=build /usr/src/node_modules /usr/src/node_modules
-COPY --from=build /usr/src/app/index.js /usr/src/server.js
+COPY --from=build /usr/src/app /usr/src/app
 

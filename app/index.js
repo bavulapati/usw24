@@ -1,11 +1,12 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import { app } from './app.js';
+const port = 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!\n')
-})
+try {
+  app.listen(port, () => {
+    console.log('Express App Listening on Port ', port);
+  });
+} catch (error) {
+  console.error(`An error occurred: ${JSON.stringify(error)}`);
+  process.exit(1);
+}
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
