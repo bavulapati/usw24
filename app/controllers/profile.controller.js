@@ -10,10 +10,26 @@ export const createProfile = async (req, res) => {
     if(!markdown) {
       return res.status(400).end('Markdown of the user portfolio is required.');
     }
-    const createdProfile = await ProfileService.createProfile(githubHandle, markdown);
-    res.json(createdProfile);
+    const profile = await ProfileService.createProfile(githubHandle, markdown);
+    res.json(profile);
   } catch (error) {
     return res.status(500).json({error});
   }
+};
+
+export const updateProfile = async (req, res) => {
+  const { githubHandle } = req.params;
+  const { markdown } = req.body;
+  if(!markdown) {
+    return res.status(400).end('Markdown of the user portfolio is required.');
+  }
+  const profile = await ProfileService.updateProfile(githubHandle, markdown);
+  res.json(profile);
+};
+
+export const deleteProfile = async (req, res) => {
+  const { githubHandle } = req.params;
+  const profile = await ProfileService.deleteProfile(githubHandle);
+  res.json(profile);
 };
 
