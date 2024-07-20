@@ -1,6 +1,6 @@
-const ProfileService = require('../services/profile.service');
+import * as ProfileService from '../services/profile.service.js';
 
-const createProfile = async (req, res) => {
+export const createProfile = async (req, res) => {
   try {
     const { githubHandle } = req.body;
     if(!githubHandle) {
@@ -17,6 +17,3 @@ const createProfile = async (req, res) => {
   }
 };
 
-module.exports = {
-  createProfile
-};

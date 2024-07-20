@@ -1,8 +1,8 @@
-const { Profile } = require('../model.js');
+import { Profile } from '../model.js';
 
-const createProfile = async (gitHubHandle, markdown) => {
+export const createProfile = async (githubHandle, markdown) => {
   const profile = await Profile.create({
-    gitHubHandle,
+    githubHandle,
     markdown
   });
   return profile;

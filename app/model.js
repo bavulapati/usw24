@@ -1,25 +1,26 @@
-const Sequelize = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize({
+export const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: './database.sqlite3'
 });
 
-class Profile extends Sequelize.Model {}
+export class Profile extends Sequelize.Model {}
 Profile.init(
   {
     githubHandle: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     markdown: {
       type: Sequelize.TEXT,
       allowNull: false
     }
+  },
+  {
+    sequelize,
+    modelName: 'Profile'
   }
 );
-
-module.exports = {
-  Profile
-};
 
