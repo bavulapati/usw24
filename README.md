@@ -3,7 +3,7 @@ The hackathon project for unikraft summer workshop
 
 ## Run the app locally
 ```
-kraft run --rm -p 3000:3000 --plat qemu --arch x86_64 -M 512M .
+kraft run --rm -p 3000:3000 --plat qemu --arch x86_64 -M 1024M .
 ```
 ```
 kraft run --rm -p 8080:8080 --plat qemu --arch x86_64 -M 512M ./frontend/Kraftfile
