@@ -12,6 +12,6 @@ export const checkGithubHandle = async (req, res, next) => {
   });
   next();
   } catch(error) {
-    res.status(404).send('the github handle does not exist').end();
+    next(error);
   }
 };
