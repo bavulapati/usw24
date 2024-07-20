@@ -6,7 +6,8 @@ The hackathon project for unikraft summer workshop
 kraft run --rm -p 3000:3000 --plat qemu --arch x86_64 -M 512M .
 ```
 ```
-kraft run --rm -p 8080:8080 --plat qemu --arch x86_64 -M 512M ./frontend/Kraftfile
+cd frontend/
+kraft run --rm -p 8080:8080 --plat qemu --arch x86_64 -M 512M .
 ```
 
 ## Deploy the app on kraft cloud

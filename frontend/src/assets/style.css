@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .unmodified-style{
+    * {
+      all: revert-layer
+    }
+  }
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
