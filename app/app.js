@@ -1,9 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import { sequelize } from './model.js';
 
 export const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.set('sequelize', sequelize)
 app.set('models', sequelize.models)
