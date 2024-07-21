@@ -44,3 +44,9 @@ export const kraftDeploy = async (markdown) => {
 
   return { "uuid": response.match(/uuid:\s*([a-f0-9-]+)/i)[1], "domain": response.match(/domain:\s*(https?:\/\/[^\s]+)/i)[1]};
 }
+
+export const kraftRemoveInstance = (uuid) => {
+  const response = execSync(`kraft cloud instance remove ${uuid}`).toString();
+
+  return response;
+}

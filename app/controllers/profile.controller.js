@@ -37,7 +37,12 @@ export const updateProfile = async (req, res) => {
 
 export const deleteProfile = async (req, res) => {
   const { githubHandle } = req.params;
-  const profile = await ProfileService.deleteProfile(githubHandle);
-  res.json(profile);
+  const profile = await ProfileService.findProfile(githubHandle);
+  const removeResponse = ProfileService.kraftRemoveInstance(profile.uuid);
+  const deleteResponse = await ProfileService.deleteProfile(githubHandle);
+  if (!deleteResponse) {
+    return res.status(500).end("Could not delete the profile");
+  }
+  return res.json({"messsage": "Removed instance"});
 };
 
