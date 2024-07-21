@@ -18,13 +18,6 @@ export const createProfile = async (githubHandle, markdown, uuid, domain) => {
   };
 };
 
-export const updateProfile = async (githubHandle, markdown) => {
-  return await Profile.update(
-    { markdown: markdown },
-    { where: { githubHandle: githubHandle } }
-  );
-};
-
 export const deleteProfile = async (githubHandle) => {
   return await Profile.destroy({ where: { githubHandle: githubHandle }});
 };
