@@ -16,6 +16,14 @@ Profile.init(
     markdown: {
       type: Sequelize.TEXT,
       allowNull: false
+    },
+    uuid: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    domain: {
+      type: Sequelize.STRING,
+      allowNull: false
     }
   },
   {
