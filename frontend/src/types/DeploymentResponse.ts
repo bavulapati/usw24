@@ -1,4 +1,4 @@
 type DeploymentResponse = {
-    githubHandle: string;
-    domain: string;
-  };
+  githubHandle: string;
+  domain: string;
+};
