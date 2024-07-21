@@ -6,24 +6,30 @@ import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import { type Ref, ref } from 'vue'
 
-let fileURL: string;
+let fileURL: Ref<string> = ref<string>("")
 let markdownContent: Ref<string> = ref<string>("");
 let htmlContent: Ref<string> = ref<string>("");
 let generatedURL: Ref<string> = ref<string>("");
+let errorMessage: Ref<string> = ref<string>("");
+let successMessage: Ref<string> = ref<string>("");
 
 function getFile() {
-  if (fileURL === "") {
+  if (fileURL.value === '') {
+    setErrorMessage("Empty markdown URL");
     return
   }
 
   axios({
     method: 'get',
     maxBodyLength: Infinity,
-    url: fileURL,
+    url: fileURL.value,
   }).then(async function (response) {
     markdownContent.value = response.data;
     htmlContent.value = DOMPurify.sanitize(await marked.parse(response.data));
   })
+    .catch(() => {
+      setErrorMessage("Cannot get the markdown file");
+    })
 }
 
 async function parseMarkdown() {
@@ -32,6 +38,17 @@ async function parseMarkdown() {
 
 function setURL(newURL: any) {
   generatedURL.value = newURL;
+}
+
+function setErrorMessage(message: string) {
+  errorMessage.value = message;
+  successMessage.value = '';
+}
+
+function setSuccessMessage(message: string, domain: string) {
+  errorMessage.value = '';
+  successMessage.value = message;
+  generatedURL.value = domain;
 }
 
 </script>
@@ -50,13 +67,19 @@ function setURL(newURL: any) {
             class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-1">Get
             file</button>
         </div>
-        <DeploymentControls :pageContent=htmlContent @urlGenerated='setURL'></DeploymentControls>
+        <div v-if="errorMessage"
+          class="p-2 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+          {{ errorMessage }}
+        </div>
+        <div v-if="successMessage"
+          class="p-2 mb-2 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+          role="alert">
+          {{ successMessage }} <a class="text-sky-600" :href="generatedURL">{{ generatedURL }}</a>
+        </div>
+        <DeploymentControls :pageContent=htmlContent @urlGenerated='setURL' @error='setErrorMessage'
+          @success="setSuccessMessage">
+        </DeploymentControls>
       </nav>
-      <div class="flex flex-column pl-2 font-size-2" v-if="generatedURL !== ''">
-        <h3>Generated url: </h3>
-        <a class="text-sky-600" :href="generatedURL">{{ generatedURL }}</a>
-      </div>
-
     </header>
 
     <div class="columns-2 p-2" id="content">
